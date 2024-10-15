@@ -1,12 +1,7 @@
 const Footer = () => (
-  <footer className="footer">
-    <p>&#169; {new Date().getFullYear()} My Blog</p>
-    <div className="social-links">
-      {/* Add your social links here */}
-      <a href="#" target="_blank" rel="noopener noreferrer">
-        GitHub
-      </a>
-      {/* Add more links as needed */}
+  <footer className="bg-black bg-opacity-50 py-6 mt-12">
+    <div className="container text-center">
+      <p>&#169; {new Date().getFullYear()} Simple NextJS Blog</p>
     </div>
   </footer>
 );

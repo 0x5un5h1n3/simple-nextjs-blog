@@ -44,22 +44,29 @@ const EditPostPage = observer(() => {
   return (
     <div>
       <Navbar />
-      <h1>Edit Post</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className="text-4xl font-bold text-white mb-4">Edit Post</h1>
+      <form
+        onSubmit={handleSubmit}
+        className="glass p-6 max-w-2xl mx-auto mt-8"
+      >
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Title"
           required
+          className="w-full p-2 mb-4 bg-gray-800 text-white border border-gray-700 rounded focus:outline-none focus:border-blue-500"
         />
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Content"
           required
+          className="w-full p-2 mb-4 bg-gray-800 text-white border border-gray-700 rounded focus:outline-none focus:border-blue-500 h-40"
         />
-        <button type="submit">Update Post</button>
+        <button type="submit" className="btn-blue w-full">
+          Update Post
+        </button>
       </form>
     </div>
   );

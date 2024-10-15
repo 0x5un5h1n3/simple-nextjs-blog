@@ -6,43 +6,39 @@ const AddPost = observer(() => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Create a new post object
     const newPost = {
       id: Date.now().toString(),
       title,
       content,
-      excerpt: content.substring(0, 50), // Create an excerpt from the content
+      excerpt: content.substring(0, 100) + "...",
     };
 
-    // Add the new post to the MobX store
     postStore.addPost(newPost);
-
-    // Clear the form fields
     setTitle("");
     setContent("");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="glass p-4">
+    <form onSubmit={handleSubmit} className="glass p-8 max-w-2xl mx-auto">
       <input
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Title"
         required
-        className="border border-gray-300 rounded p-2 w-full mb-2"
+        className="input-field mb-4"
       />
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="Content"
         required
-        className="border border-gray-300 rounded p-2 w-full mb-2"
+        className="input-field h-40 mb-4"
       />
-      <button type="submit" className="bg-blue-500 text-white rounded p-2">
+      <button type="submit" className="btn-blue w-full">
         Add Post
       </button>
     </form>

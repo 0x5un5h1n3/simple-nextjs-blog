@@ -3,6 +3,7 @@ import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import postStore from "../../store/PostStore";
 import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 
 const EditPostPage = observer(() => {
   const router = useRouter();
@@ -31,36 +32,43 @@ const EditPostPage = observer(() => {
       id: id.toString(),
       title,
       content,
-      excerpt: content.substring(0, 50),
+      excerpt: content.substring(0, 100) + "...",
     };
     postStore.updatePost(updatedPost);
-    router.push(`/post/${id}`); // Redirect to the updated post
+    router.push("/");
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center mt-20">Loading...</div>;
   }
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <h1>Edit Post</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Title"
-          required
-        />
-        <textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          placeholder="Content"
-          required
-        />
-        <button type="submit">Update Post</button>
-      </form>
+      <main className="container flex-grow mt-20">
+        <h1 className="text-4xl font-bold mb-8 text-center">Edit Post</h1>
+        <form onSubmit={handleSubmit} className="glass p-8 max-w-2xl mx-auto">
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Title"
+            required
+            className="input-field mb-4"
+          />
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="Content"
+            required
+            className="input-field h-40 mb-4"
+          />
+          <button type="submit" className="btn-blue w-full">
+            Update Post
+          </button>
+        </form>
+      </main>
+      <Footer />
     </div>
   );
 });

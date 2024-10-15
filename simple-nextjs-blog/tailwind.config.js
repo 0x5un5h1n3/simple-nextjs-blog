@@ -5,9 +5,17 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        glass:
-          "linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), linear-gradient(145deg, #ffffff, #e6e6e6)",
+      colors: {
+        background: "var(--background)",
+        "text-primary": "var(--text-primary)",
+        "text-secondary": "var(--text-secondary)",
+        accent: "var(--accent)",
+      },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+      },
+      boxShadow: {
+        glass: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
       },
     },
   },
