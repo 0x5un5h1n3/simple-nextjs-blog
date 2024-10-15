@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply bg-gradient-to-br from-blue-500 to-purple-500 min-h-screen;
+}
+
+.header {
+  @apply bg-white bg-opacity-30 backdrop-blur-lg p-4 shadow-md;
+}
+
+.navbar {
+  @apply flex justify-between items-center;
+}
+
+.hero {
+  @apply text-center py-20 bg-white bg-opacity-20 backdrop-blur-lg rounded-lg shadow-lg mx-4;
+}
+
+.footer {
+  @apply text-center py-4 text-white;
+}
+
+.glass {
+  @apply bg-white bg-opacity-30 backdrop-blur-lg rounded-lg shadow-lg p-4;
+}
