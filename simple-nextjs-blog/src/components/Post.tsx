@@ -13,6 +13,12 @@ const Post = ({ post }) => (
     <Link href={`/post/${post.id}`} className="text-blue-500 hover:underline">
       Read More
     </Link>
+    <Link
+      href={`/post/edit/${post.id}`}
+      className="text-blue-500 hover:underline ml-4"
+    >
+      Edit
+    </Link>
   </motion.div>
 );
 

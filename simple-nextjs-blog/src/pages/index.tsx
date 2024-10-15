@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Post from "../components/Post";
 import Navbar from "../components/Navbar";
 import { observer } from "mobx-react-lite";
@@ -17,18 +16,6 @@ const GET_POSTS = gql`
 `;
 
 const Home = observer(() => {
-  const { loading, error } = useQuery(GET_POSTS, {
-    onCompleted: (data) => {
-      postStore.setPosts(data.posts);
-    },
-    onError: (error) => {
-      console.error("Error fetching posts:", error);
-    },
-  });
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error fetching posts</p>;
-
   return (
     <div>
       <Navbar />
