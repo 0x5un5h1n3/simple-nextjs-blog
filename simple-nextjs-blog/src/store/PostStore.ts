@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
 class PostStore {
-  posts = [];
+  posts = JSON.parse(localStorage.getItem("posts")) || [];
 
   constructor() {
     makeAutoObservable(this);
@@ -9,10 +9,17 @@ class PostStore {
 
   setPosts(posts) {
     this.posts = posts;
+    localStorage.setItem("posts", JSON.stringify(posts)); // Save to local storage
   }
 
   addPost(post) {
     this.posts.push(post);
+    this.setPosts(this.posts); // Update local storage
+  }
+
+  deletePost(id) {
+    this.posts = this.posts.filter((p) => p.id !== id);
+    this.setPosts(this.posts); // Update local storage
   }
 }
 
