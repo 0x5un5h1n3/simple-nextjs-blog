@@ -1,30 +1,68 @@
 import { useRouter } from "next/router";
-import Navbar from "../../components/Navbar";
 import { observer } from "mobx-react-lite";
+import { useEffect, useState } from "react";
 import postStore from "../../store/PostStore";
+import Navbar from "../../components/Navbar";
 
-const PostPage = observer(() => {
+const EditPostPage = observer(() => {
   const router = useRouter();
   const { id } = router.query;
 
-  // Find the post by ID
-  const post = postStore.posts.find((p) => p.id === id);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  if (!post) return <p>Loading...</p>; // Or handle not found
+  useEffect(() => {
+    if (id) {
+      const foundPost = postStore.posts.find(
+        (p) => p.id.toString() === id.toString()
+      );
+      if (foundPost) {
+        setTitle(foundPost.title);
+        setContent(foundPost.content);
+      }
+      setLoading(false);
+    }
+  }, [id, postStore.posts]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const updatedPost = {
+      id: id.toString(),
+      title,
+      content,
+      excerpt: content.substring(0, 50),
+    };
+    postStore.updatePost(updatedPost);
+    router.push(`/post/${id}`); // Redirect to the updated post
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
       <Navbar />
-      <h1 className="text-4xl font-bold">{post.title}</h1>
-      <p>{post.content}</p>
-      <button
-        onClick={() => router.back()}
-        className="bg-blue-500 text-white rounded p-2"
-      >
-        Go Back
-      </button>
+      <h1>Edit Post</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Title"
+          required
+        />
+        <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="Content"
+          required
+        />
+        <button type="submit">Update Post</button>
+      </form>
     </div>
   );
 });
 
-export default PostPage;
+export default EditPostPage;

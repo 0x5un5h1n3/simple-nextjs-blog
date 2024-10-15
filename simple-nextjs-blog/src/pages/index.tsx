@@ -1,21 +1,18 @@
+// pages/index.tsx
+import { useEffect } from "react";
 import Post from "../components/Post";
 import Navbar from "../components/Navbar";
 import { observer } from "mobx-react-lite";
-import { ApolloProvider, useQuery, gql } from "@apollo/client";
-import client from "../apollo-client";
 import postStore from "../store/PostStore";
 
-const GET_POSTS = gql`
-  query GetPosts {
-    posts {
-      id
-      title
-      excerpt
-    }
-  }
-`;
-
 const Home = observer(() => {
+  useEffect(() => {
+    const storedPosts = localStorage.getItem("posts");
+    if (storedPosts) {
+      postStore.setPosts(JSON.parse(storedPosts));
+    }
+  }, []);
+
   return (
     <div>
       <Navbar />
@@ -34,10 +31,4 @@ const Home = observer(() => {
   );
 });
 
-const HomeWithApollo = () => (
-  <ApolloProvider client={client}>
-    <Home />
-  </ApolloProvider>
-);
-
-export default HomeWithApollo;
+export default Home;

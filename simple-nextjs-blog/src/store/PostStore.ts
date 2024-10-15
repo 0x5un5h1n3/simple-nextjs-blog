@@ -1,7 +1,8 @@
+// PostStore.ts
 import { makeAutoObservable } from "mobx";
 
 class PostStore {
-  posts = JSON.parse(localStorage.getItem("posts")) || [];
+  posts = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -9,17 +10,30 @@ class PostStore {
 
   setPosts(posts) {
     this.posts = posts;
-    localStorage.setItem("posts", JSON.stringify(posts)); // Save to local storage
   }
 
   addPost(post) {
     this.posts.push(post);
-    this.setPosts(this.posts); // Update local storage
+    this.savePosts();
+  }
+
+  updatePost(updatedPost) {
+    const index = this.posts.findIndex((p) => p.id === updatedPost.id);
+    if (index !== -1) {
+      this.posts[index] = updatedPost;
+      this.savePosts();
+    }
   }
 
   deletePost(id) {
     this.posts = this.posts.filter((p) => p.id !== id);
-    this.setPosts(this.posts); // Update local storage
+    this.savePosts();
+  }
+
+  savePosts() {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("posts", JSON.stringify(this.posts));
+    }
   }
 }
 

@@ -19,12 +19,15 @@ const Post = ({ post }) => {
       <Link href={`/post/${post.id}`} className="text-blue-500 hover:underline">
         Read More
       </Link>
-      <Link
+      <Link href={`/post/${post.id}`} className="text-blue-500 hover:underline">
+        Edit
+      </Link>
+      {/* <Link
         href={`/post/edit?id=${post.id}`}
         className="text-green-500 hover:underline ml-4"
       >
         Edit
-      </Link>
+      </Link> */}
       <button
         onClick={handleDelete}
         className="text-red-500 hover:underline ml-4"
