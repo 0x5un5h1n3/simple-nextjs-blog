@@ -5,6 +5,7 @@ import { observer } from "mobx-react-lite";
 import { ApolloProvider, useQuery, gql } from "@apollo/client";
 import client from "../apollo-client";
 import postStore from "../store/PostStore";
+import Footer from "../components/Footer";
 
 const GET_POSTS = gql`
   query GetPosts {
@@ -39,6 +40,12 @@ const Home = observer(() => {
         {postStore.posts.map((post) => (
           <Post key={post.id} post={post} />
         ))}
+      </div>
+      <div>
+        <Navbar />
+        <section className="hero">{/* Hero content */}</section>
+        {/* Posts grid */}
+        <Footer />
       </div>
     </div>
   );
