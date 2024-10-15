@@ -4,7 +4,7 @@ import postStore from "../store/PostStore";
 
 const Post = ({ post }) => {
   const handleDelete = () => {
-    postStore.posts = postStore.posts.filter((p) => p.id !== post.id);
+    postStore.deletePost(post.id); // Call delete method from MobX store
   };
 
   return (
